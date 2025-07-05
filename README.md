@@ -31,6 +31,10 @@ The `play_random_sound.sh` script:
 
 ### Direct Usage
 ```bash
+# Make sure the script is executable (should be preserved from Git)
+chmod +x play_random_sound.sh
+
+# Run the script
 ./play_random_sound.sh
 ```
 
