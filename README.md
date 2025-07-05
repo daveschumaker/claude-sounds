@@ -5,10 +5,7 @@
 A simple bash script that plays random sound effects from a collection of audio files. This project appears to be set up as a notification hook for Claude Code, playing a random sound when certain events occur.
 
 ### 🔊 Example Sound
-<audio controls>
-  <source src="sounds/ElevenLabs_2025-07-04T22_19_12_Archer - Conversational_pvc_sp100_s50_sb75_v3.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+*[Click here to download and listen to an example sound file](sounds/ElevenLabs_2025-07-04T22_19_12_Archer%20-%20Conversational_pvc_sp100_s50_sb75_v3.mp3)*
 
 ## Project Structure
 
