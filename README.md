@@ -26,8 +26,49 @@ The `play_random_sound.sh` script:
 ./play_random_sound.sh
 ```
 
+### Global Access via PATH
+To run the script from anywhere on your system, add the project directory to your PATH:
+
+#### For Zsh (macOS default):
+```bash
+echo 'export PATH="$PATH:/Users/dave/projects/personal/claude-sounds"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+#### For Bash:
+```bash
+echo 'export PATH="$PATH:/Users/dave/projects/personal/claude-sounds"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+After adding to PATH, you can run the script from anywhere:
+```bash
+play_random_sound.sh
+```
+
 ### As a Claude Code Hook
 This script is configured as a notification hook in Claude Code, automatically playing a sound when certain events occur.
+
+#### Setting up Claude Code Hooks
+To configure this as a hook in Claude Code, add the following to your Claude Code settings:
+
+1. Open your Claude Code settings file (usually `~/.config/claude-code/settings.json`)
+2. Add a hook configuration:
+
+```json
+{
+  "hooks": {
+    "user-prompt-submit": "play_random_sound.sh",
+    "assistant-response-complete": "play_random_sound.sh"
+  }
+}
+```
+
+Available hook events include:
+- `user-prompt-submit`: Triggered when you submit a prompt
+- `assistant-response-complete`: Triggered when Claude finishes responding
+- `tool-call-start`: Triggered when Claude starts using a tool
+- `tool-call-complete`: Triggered when Claude finishes using a tool
 
 ## Requirements
 
