@@ -1,5 +1,7 @@
 # Claude Sounds
 
+![Claude Sounds](claude-sounds.png)
+
 A simple bash script that plays random sound effects from a collection of audio files. This project appears to be set up as a notification hook for Claude Code, playing a random sound when certain events occur.
 
 ## Project Structure
