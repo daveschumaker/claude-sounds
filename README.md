@@ -4,6 +4,12 @@
 
 A simple bash script that plays random sound effects from a collection of audio files. This project appears to be set up as a notification hook for Claude Code, playing a random sound when certain events occur.
 
+### 🔊 Example Sound
+<audio controls>
+  <source src="sounds/ElevenLabs_2025-07-04T22_19_12_Archer - Conversational_pvc_sp100_s50_sb75_v3.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
 ## Project Structure
 
 ```
@@ -84,5 +90,5 @@ Simply add MP3 files to the `sounds/` directory. The script will automatically i
 
 ## Notes
 
-- The audio files appear to be generated using ElevenLabs with an "Archer - Conversational" voice profile
+- The audio files appear to be generated using [ElevenLabs](https://elevenlabs.io/) with an "Archer - Conversational" voice profile
 - The script uses proper error handling to check for the existence of the sounds directory and MP3 files
