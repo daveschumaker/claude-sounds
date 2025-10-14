@@ -3,6 +3,7 @@
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SOUNDS_DIR="$SCRIPT_DIR/sounds"
+DISABLE_FLAG="$HOME/.claude-sounds-disabled"
 
 # Function to show help
 show_help() {
@@ -16,6 +17,9 @@ Commands:
   random              Play a random sound (default if no command given)
   list                List all available sound files
   play <filename>     Play a specific sound file
+  enable              Enable sound playback globally
+  disable             Disable sound playback globally
+  status              Show current enable/disable status
   help                Show this help message
 
 Examples:
@@ -23,8 +27,50 @@ Examples:
   claude-sounds random             # Play a random sound
   claude-sounds list               # List all available sounds
   claude-sounds play mysound.mp3   # Play a specific sound
+  claude-sounds disable            # Disable all sounds globally
+  claude-sounds enable             # Re-enable sounds globally
+  claude-sounds status             # Check if sounds are enabled
 
 EOF
+}
+
+# Function to check if sounds are enabled
+check_if_enabled() {
+    if [ -f "$DISABLE_FLAG" ]; then
+        # Sounds are disabled, exit silently
+        exit 0
+    fi
+}
+
+# Function to enable sounds globally
+enable_sounds() {
+    if [ -f "$DISABLE_FLAG" ]; then
+        rm "$DISABLE_FLAG"
+        echo "✓ Sounds enabled globally"
+    else
+        echo "✓ Sounds are already enabled"
+    fi
+}
+
+# Function to disable sounds globally
+disable_sounds() {
+    if [ ! -f "$DISABLE_FLAG" ]; then
+        touch "$DISABLE_FLAG"
+        echo "✓ Sounds disabled globally"
+    else
+        echo "✓ Sounds are already disabled"
+    fi
+}
+
+# Function to show current status
+show_status() {
+    if [ -f "$DISABLE_FLAG" ]; then
+        echo "Status: disabled"
+        echo "Run 'claude-sounds enable' to enable sounds"
+    else
+        echo "Status: enabled"
+        echo "Run 'claude-sounds disable' to disable sounds"
+    fi
 }
 
 # Function to check if sounds directory exists and has files
@@ -49,6 +95,7 @@ check_sounds() {
 
 # Function to play a random sound
 play_random() {
+    check_if_enabled
     check_sounds
 
     # Select a random sound file
@@ -75,6 +122,7 @@ list_sounds() {
 
 # Function to play a specific sound
 play_specific() {
+    check_if_enabled
     local filename="$1"
 
     if [ -z "$filename" ]; then
@@ -109,6 +157,15 @@ case "$COMMAND" in
         ;;
     play)
         play_specific "$2"
+        ;;
+    enable)
+        enable_sounds
+        ;;
+    disable)
+        disable_sounds
+        ;;
+    status)
+        show_status
         ;;
     help|--help|-h)
         show_help

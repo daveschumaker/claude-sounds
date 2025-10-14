@@ -42,9 +42,41 @@ claude-sounds list
 # Play a specific sound
 claude-sounds play mysound.mp3
 
+# Enable/disable sounds globally
+claude-sounds disable    # Disable all sound playback
+claude-sounds enable     # Re-enable sound playback
+claude-sounds status     # Check current status
+
 # Show help
 claude-sounds help
 ```
+
+### Global Enable/Disable
+
+The `enable` and `disable` commands allow you to toggle sound playback globally (across all terminal windows and sessions). This is particularly useful when you have `claude-sounds` configured as a hook but want to temporarily silence it without changing your configuration.
+
+When sounds are disabled:
+- All playback commands exit silently without playing sounds
+- The disabled state persists across terminal sessions
+- Hooks using `claude-sounds` won't fail, they'll just skip playback
+
+```bash
+# Disable sounds before a meeting
+claude-sounds disable
+
+# Check status
+claude-sounds status
+# Output: Status: disabled
+
+# Re-enable when ready
+claude-sounds enable
+
+# Check status again
+claude-sounds status
+# Output: Status: enabled
+```
+
+The enable/disable state is stored in `~/.claude-sounds-disabled` and works globally across all terminal windows.
 
 ### Installation
 
