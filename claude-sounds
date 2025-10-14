@@ -1,0 +1,122 @@
+#!/bin/bash
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SOUNDS_DIR="$SCRIPT_DIR/sounds"
+
+# Function to show help
+show_help() {
+    cat << EOF
+claude-sounds - Play random sound effects from the command line
+
+Usage:
+  claude-sounds [command] [arguments]
+
+Commands:
+  random              Play a random sound (default if no command given)
+  list                List all available sound files
+  play <filename>     Play a specific sound file
+  help                Show this help message
+
+Examples:
+  claude-sounds                    # Play a random sound
+  claude-sounds random             # Play a random sound
+  claude-sounds list               # List all available sounds
+  claude-sounds play mysound.mp3   # Play a specific sound
+
+EOF
+}
+
+# Function to check if sounds directory exists and has files
+check_sounds() {
+    if [ ! -d "$SOUNDS_DIR" ]; then
+        echo "Error: sounds directory not found at $SOUNDS_DIR"
+        exit 1
+    fi
+
+    # Find all mp3 files in the sounds directory and store in array
+    SOUND_FILES=()
+    while IFS= read -r -d '' file; do
+        SOUND_FILES+=("$file")
+    done < <(find "$SOUNDS_DIR" -name "*.mp3" -type f -print0)
+
+    # Check if any sound files were found
+    if [ ${#SOUND_FILES[@]} -eq 0 ]; then
+        echo "Error: No MP3 files found in $SOUNDS_DIR"
+        exit 1
+    fi
+}
+
+# Function to play a random sound
+play_random() {
+    check_sounds
+
+    # Select a random sound file
+    RANDOM_INDEX=$((RANDOM % ${#SOUND_FILES[@]}))
+    RANDOM_SOUND="${SOUND_FILES[$RANDOM_INDEX]}"
+
+    # Display which file is being played
+    echo "Playing: $(basename "$RANDOM_SOUND")"
+
+    # Play the sound using afplay (macOS default audio player)
+    afplay "$RANDOM_SOUND"
+}
+
+# Function to list all sounds
+list_sounds() {
+    check_sounds
+
+    echo "Available sounds (${#SOUND_FILES[@]} total):"
+    echo ""
+    for sound in "${SOUND_FILES[@]}"; do
+        echo "  $(basename "$sound")"
+    done
+}
+
+# Function to play a specific sound
+play_specific() {
+    local filename="$1"
+
+    if [ -z "$filename" ]; then
+        echo "Error: No filename provided"
+        echo "Usage: claude-sounds play <filename>"
+        exit 1
+    fi
+
+    # Check if the file exists in the sounds directory
+    local sound_path="$SOUNDS_DIR/$filename"
+
+    if [ ! -f "$sound_path" ]; then
+        echo "Error: Sound file '$filename' not found in $SOUNDS_DIR"
+        echo ""
+        echo "Use 'claude-sounds list' to see available sounds"
+        exit 1
+    fi
+
+    echo "Playing: $filename"
+    afplay "$sound_path"
+}
+
+# Parse command line arguments
+COMMAND="${1:-random}"
+
+case "$COMMAND" in
+    random)
+        play_random
+        ;;
+    list)
+        list_sounds
+        ;;
+    play)
+        play_specific "$2"
+        ;;
+    help|--help|-h)
+        show_help
+        ;;
+    *)
+        echo "Error: Unknown command '$COMMAND'"
+        echo ""
+        show_help
+        exit 1
+        ;;
+esac
