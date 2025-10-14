@@ -4,12 +4,13 @@
 
 A simple CLI tool that plays random sound effects from a collection of audio files. Perfect as a notification hook for Claude Code or for general terminal fun!
 
-### 🔊 Example Sound
+## 🔊 Example Sound
+
 *[Click here to download and listen to an example sound file](sounds/ElevenLabs_2025-07-04T22_19_12_Archer%20-%20Conversational_pvc_sp100_s50_sb75_v3.mp3)*
 
 ## Project Structure
 
-```
+```md
 claude-sounds/
 ├── claude-sounds          # Main CLI script that selects and plays sounds
 ├── sounds/                # Directory containing MP3 audio files
@@ -20,6 +21,7 @@ claude-sounds/
 ## How It Works
 
 The `claude-sounds` CLI tool provides several commands:
+
 - **random**: Locates all MP3 files in the `sounds/` directory, randomly selects one, and plays it
 - **list**: Shows all available sound files
 - **play**: Plays a specific sound file by name
@@ -56,6 +58,7 @@ claude-sounds help
 The `enable` and `disable` commands allow you to toggle sound playback globally (across all terminal windows and sessions). This is particularly useful when you have `claude-sounds` configured as a hook but want to temporarily silence it without changing your configuration.
 
 When sounds are disabled:
+
 - All playback commands exit silently without playing sounds
 - The disabled state persists across terminal sessions
 - Hooks using `claude-sounds` won't fail, they'll just skip playback
@@ -81,6 +84,7 @@ The enable/disable state is stored in `~/.claude-sounds-disabled` and works glob
 ### Installation
 
 #### Local Usage
+
 ```bash
 # Make sure the script is executable (should be preserved from Git)
 chmod +x claude-sounds
@@ -90,29 +94,35 @@ chmod +x claude-sounds
 ```
 
 #### Global Access via PATH
+
 To run `claude-sounds` from anywhere on your system, add the project directory to your PATH:
 
 **For Zsh (macOS default):**
+
 ```bash
 echo 'export PATH="$PATH:/path/to/claude-sounds"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
 **For Bash:**
+
 ```bash
 echo 'export PATH="$PATH:/path/to/claude-sounds"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 After adding to PATH, you can run from anywhere:
+
 ```bash
 claude-sounds random
 ```
 
 ### As a Claude Code Hook
+
 You can configure `claude-sounds` as a notification hook in Claude Code to automatically play sounds when certain events occur.
 
 #### Setting up Claude Code Hooks
+
 To configure this as a hook in Claude Code:
 
 1. Open your Claude Code settings file (usually `~/.config/claude-code/settings.json`)
@@ -130,6 +140,7 @@ To configure this as a hook in Claude Code:
 **Note:** Make sure `claude-sounds` is in your PATH before setting up hooks.
 
 Available hook events include:
+
 - `user-prompt-submit`: Triggered when you submit a prompt
 - `assistant-response-complete`: Triggered when Claude finishes responding
 - `tool-call-start`: Triggered when Claude starts using a tool
@@ -145,7 +156,24 @@ Available hook events include:
 
 Simply add MP3 files to the `sounds/` directory. The script will automatically include them in the random selection pool.
 
+### Generating New Sounds with ElevenLabs
+
+The included audio files were generated using [ElevenLabs](https://elevenlabs.io/) with the following settings:
+
+- **Voice**: Archer - Conversational
+- **Voice Settings**:
+  - Stability: 50 (`s50`)
+  - Similarity Boost: 75 (`sb75`)
+  - Style Exaggeration: 14 (`se14`)
+  - Speaker Boost: enabled (`b_m2`)
+
+To generate new sounds with consistent quality:
+
+1. Go to [ElevenLabs](https://elevenlabs.io/)
+2. Select the "Archer" voice with "Conversational" style
+3. Use the voice settings above
+4. Export as MP3 and add to the `sounds/` directory
+
 ## Notes
 
-- The audio files appear to be generated using [ElevenLabs](https://elevenlabs.io/) with an "Archer - Conversational" voice profile
 - The script uses proper error handling to check for the existence of the sounds directory and MP3 files
