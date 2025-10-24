@@ -132,16 +132,40 @@ After adding to PATH, you can run from anywhere:
 claude-sounds random
 ```
 
-### As a Claude Code Hook
+### Using with Claude Code
 
 You can configure `claude-sounds` as a notification hook in Claude Code to automatically play sounds when certain events occur.
 
-#### Setting up Claude Code Hooks
+#### Setting up Notification Hooks
 
-To configure this as a hook in Claude Code:
+Inside Claude Code:
 
-1. Open your Claude Code settings file (usually `~/.config/claude-code/settings.json`)
-2. Add a hook configuration:
+1. Run `/hooks`
+2. Select "Notification" hook
+3. Select "+ Add new hook..."
+4. Enter `claude-sounds`
+5. Save settings
+
+Now, whenever Claude would trigger a user notification, it will play a sound!
+
+#### Temporarily Disable/Enable Sounds
+
+Want to silence the sounds temporarily (like during a meeting)? You can use Claude Code's bash mode:
+
+```bash
+# Disable sounds
+! claude-sounds disable
+
+# Re-enable sounds
+! claude-sounds enable
+
+# Check current status
+! claude-sounds status
+```
+
+#### Manual Configuration (Alternative)
+
+You can also manually configure hooks by editing your Claude Code settings file (usually `~/.config/claude-code/settings.json`):
 
 ```json
 {
