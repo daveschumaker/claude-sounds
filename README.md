@@ -83,6 +83,21 @@ The enable/disable state is stored in `~/.claude-sounds-disabled` and works glob
 
 ### Installation
 
+#### Homebrew (Recommended)
+
+Install via Homebrew:
+
+```bash
+brew install daveschumaker/claude-sounds/claude-sounds
+```
+
+Or tap the repository first:
+
+```bash
+brew tap daveschumaker/claude-sounds
+brew install claude-sounds
+```
+
 #### Local Usage
 
 ```bash
@@ -137,7 +152,7 @@ To configure this as a hook in Claude Code:
 }
 ```
 
-**Note:** Make sure `claude-sounds` is in your PATH before setting up hooks.
+**Note:** If you installed via Homebrew, `claude-sounds` is automatically in your PATH. Otherwise, make sure `claude-sounds` is in your PATH before setting up hooks.
 
 Available hook events include:
 
