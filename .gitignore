@@ -25,3 +25,6 @@ desktop.ini
 
 # Cache directories
 .cache/
+
+# Claude Code configuration
+.claude/
