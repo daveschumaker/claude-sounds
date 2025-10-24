@@ -163,28 +163,6 @@ Want to silence the sounds temporarily (like during a meeting)? You can use Clau
 ! claude-sounds status
 ```
 
-#### Manual Configuration (Alternative)
-
-You can also manually configure hooks by editing your Claude Code settings file (usually `~/.config/claude-code/settings.json`):
-
-```json
-{
-  "hooks": {
-    "user-prompt-submit": "claude-sounds random",
-    "assistant-response-complete": "claude-sounds random"
-  }
-}
-```
-
-**Note:** If you installed via Homebrew, `claude-sounds` is automatically in your PATH. Otherwise, make sure `claude-sounds` is in your PATH before setting up hooks.
-
-Available hook events include:
-
-- `user-prompt-submit`: Triggered when you submit a prompt
-- `assistant-response-complete`: Triggered when Claude finishes responding
-- `tool-call-start`: Triggered when Claude starts using a tool
-- `tool-call-complete`: Triggered when Claude finishes using a tool
-
 ## Requirements
 
 - macOS (uses `afplay` for audio playback)
