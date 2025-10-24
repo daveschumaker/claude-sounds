@@ -2,7 +2,7 @@ class ClaudeSounds < Formula
   desc "CLI tool that plays random sound effects from a collection of audio files"
   homepage "https://github.com/daveschumaker/claude-sounds"
   url "https://github.com/daveschumaker/claude-sounds/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "438412957be48be268ff06c87502877bf43efe6805ff93f2e0cebc864239bfe5"
+  sha256 "32c31048405b84ba24ff931db37416746d734eca097788baa503fd6ab5bc1a16"
   license "MIT"
 
   depends_on :macos
